@@ -6,18 +6,21 @@ import {authService} from './fbase'
 
 function App() {
   const [isLogined, setisLogined] = useState(false)
+  const [User, setUser] = useState([])
   let navigate = useNavigate();
+
   useEffect(()=>{
   authService.onAuthStateChanged((user)=>{
     if(user){
       setisLogined(true)
+      setUser(authService.currentUser)
     } else{
       setisLogined(false);
       navigate('/')
     }
   })
   },[])
-  console.log(authService.currentUser)
+  
   return (
     <div className="App">
 {/* <button onClick={()=>{setisLogined(!isLogined)}}>asd</button> */}
