@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import Header from "./componemts/Header";
+import Login from "./componemts/Login";
+import {authService} from './fbase'
 
 function App() {
+  const [isLogined, setisLogined] = useState(false)
+  let navigate = useNavigate();
+  useEffect(()=>{
+  authService.onAuthStateChanged((user)=>{
+    if(user){
+      setisLogined(true)
+    } else{
+      setisLogined(false);
+      navigate('/')
+    }
+  })
+  },[])
+  console.log(authService.currentUser)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+{/* <button onClick={()=>{setisLogined(!isLogined)}}>asd</button> */}
+      {isLogined && <Header />}
+     
+      {isLogined ? 
+      <main><Outlet /></main> : <Login />
+       }
+      {/* <Outlet context={[count, setCount]} /> */}
+      <footer></footer>
     </div>
   );
 }
