@@ -19,6 +19,7 @@ function App() {
       navigate('/')
     }
   })
+  console.log(`event!`)
   },[])
   
   return (
@@ -26,10 +27,11 @@ function App() {
 {/* <button onClick={()=>{setisLogined(!isLogined)}}>asd</button> */}
       {isLogined && <Header />}
      
-      {isLogined ? 
-      <main><Outlet /></main> : <Login />
+      {isLogined ?
+       <main><Outlet context={[User, setUser]} /></main> :
+       <Login />
        }
-      {/* <Outlet context={[count, setCount]} /> */}
+     
       <footer></footer>
     </div>
   );

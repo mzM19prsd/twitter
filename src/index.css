@@ -53,3 +53,17 @@ main{
   border-left: 1px solid lightgray;
   border-right: 1px solid gray;
 }
+.tweet{
+  font-size: 1.25rem;
+}
+.tweetOptions{
+  display: flex;
+  gap: 1rem;
+  color:darkslategrey;
+  font-size: 1rem;
+}
+textarea{
+  
+  font-size: 1.25rem;
+  resize: none;
+}
