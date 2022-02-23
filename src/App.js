@@ -19,13 +19,13 @@ function App() {
       navigate('/')
     }
   })
-  console.log(`event!`)
+
   },[])
-  
+  console.log(User)
   return (
     <div className="App">
 {/* <button onClick={()=>{setisLogined(!isLogined)}}>asd</button> */}
-      {isLogined && <Header />}
+      {isLogined && <Header uid={User.uid} />}
      
       {isLogined ?
        <main><Outlet context={[User, setUser]} /></main> :

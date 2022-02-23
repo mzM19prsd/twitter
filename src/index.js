@@ -16,7 +16,7 @@ render(
       <Route path="/" element={<App />} >
       <Route index element={<Home/>}
       />
-       <Route path="profile" element={<Profile />} />
+       <Route path="/profile=:userId" element={<Profile />} />
      </Route>
     </Routes>
   </BrowserRouter>,

@@ -39,7 +39,7 @@ export default function Home() {
   const submitTweet=async(e)=>{
     e.preventDefault();
     let imgFileSrc='';
-    if(imgFile !=''){
+    if(imgFile !==''){
       const fileRef=storageService.ref().child(`${User.uid}/${Date.now()}`);
     const response =await fileRef.putString(imgFile,'data_url');
     imgFileSrc=await response.ref.getDownloadURL();
@@ -54,7 +54,7 @@ export default function Home() {
     settweet('');
     setimgFile('');
   }
-  
+  console.log(tweets)
   return (
     <div>
       <form onSubmit={submitTweet}>
