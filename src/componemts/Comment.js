@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { dbService } from "../fbase";
+import { authService, dbService } from "../fbase";
 import { collection, getDocs, query, where } from "@firebase/firestore";
 import CommentContent from "./CommentContent";
 
-export default function Comment({ tweetID, User }) {
+export default function Comment({ User, tweetID }) {
   const [comments, setcomments] = useState([]);
   const [NewComment, setNewComment] = useState("");
+  
+
 
   const getComments = async () => {
     const q = query(
@@ -24,7 +26,7 @@ export default function Comment({ tweetID, User }) {
     setNewComment(e.target.value);
   };
   const submitComment = async (e) => {
-    e.preventDefault();
+      e.preventDefault();
     await dbService.collection("comments").add({
       commenter: User.displayName,
       photoURL: User.photoURL,
@@ -33,6 +35,7 @@ export default function Comment({ tweetID, User }) {
       comment: NewComment,
       commentAt: Date.now(),
     });
+    console.log(1)
   };
 
   useEffect(() => {
@@ -41,9 +44,15 @@ export default function Comment({ tweetID, User }) {
 
   return (
     <details>
-      <summary><i class='bx bx-message-rounded-dots'></i> {comments.length}</summary>
+      <summary>
+        <i className="bx bx-message-rounded-dots"></i> {comments.length}
+      </summary>
       <form onSubmit={submitComment}>
-        <textarea value={NewComment} onChange={onChangeComment}></textarea>
+        <input
+          type="text"
+          value={NewComment}
+          onChange={onChangeComment}
+        ></input>
         <input type="submit" value="답글"></input>
       </form>
       <ul>

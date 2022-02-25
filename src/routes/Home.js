@@ -72,7 +72,7 @@ export default function Home() {
       </form>
       <div>
         {tweets.map((tweet)=>(
-          <Tweet key={tweet.id} tweet={tweet} isOwner={tweet.creatorID===User.uid} />
+          <Tweet key={tweet.id} User={User} tweet={tweet} isOwner={tweet.creatorID===User.uid} />
         ))}
       </div>
     </div>
