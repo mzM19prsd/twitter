@@ -31,7 +31,7 @@ export default function Home() {
     }
     reader.readAsDataURL(thefile)
   }
-
+  
   const clearImg=()=>{
     setimgFile(null)
   }
@@ -47,6 +47,8 @@ export default function Home() {
     }
     await dbService.collection("tweets").add({
       creatorID:User.uid,
+      creatorName:User.displayName,
+      creatorPhoto:User.photoURL,
       text:tweet,
       imgFileSrc:imgFileSrc,
       createdAt:Date.now(),
@@ -54,7 +56,7 @@ export default function Home() {
     settweet('');
     setimgFile('');
   }
-  console.log(tweets)
+  
   return (
     <div>
       <form onSubmit={submitTweet}>

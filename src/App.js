@@ -13,7 +13,7 @@ function App() {
   authService.onAuthStateChanged((user)=>{
     if(user){
       setisLogined(true)
-      setUser(authService.currentUser)
+      setUser(user)
     } else{
       setisLogined(false);
       navigate('/')
@@ -21,11 +21,11 @@ function App() {
   })
 
   },[])
-  console.log(User)
+  
   return (
     <div className="App">
 {/* <button onClick={()=>{setisLogined(!isLogined)}}>asd</button> */}
-      {isLogined && <Header uid={User.uid} />}
+      {isLogined && <Header />}
      
       {isLogined ?
        <main><Outlet context={[User, setUser]} /></main> :

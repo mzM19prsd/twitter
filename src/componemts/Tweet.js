@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { dbService, storageService } from "../fbase";
-import { doc, deleteDoc, updateDoc }from"firebase/firestore";
+import { doc, updateDoc }from"firebase/firestore";
+import { Link } from "react-router-dom";
+import Comment from "./Comment";
 
-export default function Tweet({ tweet, isOwner }) {
+export default function Tweet({ tweet, User, isOwner }) {
   const [onEdit, setonEdit] = useState(false)
   const [newTweet, setnewTweet] = useState(tweet.text)
   
@@ -28,30 +30,40 @@ setonEdit(false)
 
   return (
     <div className="tweet">
-      
+      <div className="tweetSec1">
+        {<img className="creatorPhoto" 
+        src={tweet.creatorPhoto} alt='creatorPhoto' />
+        }
+      </div>
+      <div className="tweetSec2">
      {onEdit ? <form onSubmit={submitTweet}>
-      <textarea onChange={onChangeNewTweet} value={newTweet} rows='3' cols='30'></textarea>
+      <textarea onChange={onChangeNewTweet} value={newTweet}></textarea>
       <button type="submit">tweet</button>
      </form> : 
+    <Link to={`/tweet=${tweet.id}`}> 
+    <p>{tweet.creatorName}</p>
      <p>{tweet.text}</p>
+    </Link>
      
      }
-     {tweet.imgFileSrc && <img width='100%' src={tweet.imgFileSrc} />}
+     {tweet.imgFileSrc && <img className="tweetIMG" src={tweet.imgFileSrc} alt="tweetIMG" />}
       <div>
         <ul className="tweetOptions">
-          <li>coments</li>
+          <li>
+         <Comment User={User} tweetID={tweet.id} />
+            </li>
           {isOwner ?
           <>
-          <li><button onClick={onDel}>delete</button></li>
-          <li><button onClick={onEditToggle}>{onEdit ? 'cancel' : 'Edit'}</button></li>
+          <li><button onClick={onDel}><i className='bx bx-trash' ></i></button></li>
+          <li><button onClick={onEditToggle}>{onEdit ? 'cancel' : <i className='bx bx-edit' ></i>}</button></li>
           </> :
           <>
-          <li>block</li>
+          <li>차단하기</li>
           </>
           }
         </ul>
       </div>
-     
+      </div>
     </div>
   );
 }

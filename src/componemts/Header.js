@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { authService } from "../fbase";
 
-export default function Header({uid}) {
+export default function Header() {
   
   const onLogout = () => {
     authService.signOut();
@@ -23,7 +23,7 @@ export default function Header({uid}) {
           </Link>
         </li>
         <li>
-          <Link to={`/profile=${uid}`}>
+          <Link to='/profile'>
             <span>
               <i className="bx bxs-user"></i>
             </span>{" "}

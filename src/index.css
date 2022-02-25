@@ -9,7 +9,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: whitesmoke;
+  background-color: white;
 }
 a{
   color: inherit;
@@ -55,12 +55,34 @@ main{
 }
 .tweet{
   font-size: 1.25rem;
+  display: flex;
+}
+.tweet:hover{
+  background-color: whitesmoke;
+}
+.creatorPhoto{
+  border-radius: 50%;
+  width: 50%;
+  margin: 0 auto;
+  object-fit: cover;
+  object-position: center;
+}
+.tweetSec1{
+width: 10%;
+}
+.tweetSec2{
+width: 90%;
 }
 .tweetOptions{
   display: flex;
   gap: 1rem;
   color:darkslategrey;
   font-size: 1rem;
+}
+.tweetIMG{
+  max-width: 100%;
+  max-height: 499px;
+  
 }
 textarea{
   
