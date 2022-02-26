@@ -15,23 +15,31 @@ export default function Header() {
       </div>
       <ul>
         <li>
-          <Link to="/">
+          <Link to="/" className="navItem">
             <span>
-              <i className="bx bxs-home"></i>
+            <i className='bx bx-home' ></i>
             </span>{" "}
             <span className="navItem-name">Home</span>
           </Link>
         </li>
         <li>
-          <Link to='/profile'>
+          <Link to='/profile' className="navItem">
             <span>
-              <i className="bx bxs-user"></i>
+            <i className='bx bx-user' ></i>
             </span>{" "}
             <span className="navItem-name">Profile</span>
           </Link>
         </li>
+        <li onClick={onLogout}>       
+            <span onClick={onLogout} className="navItem">
+            <span>
+            <i className='bx bx-log-out'></i>
+            </span>{" "}
+            <span className="navItem-name">Log out</span>
+            </span>         
+        </li>
       </ul>
-      <button onClick={onLogout}>Log out</button>
+      
     </div>
   );
 }

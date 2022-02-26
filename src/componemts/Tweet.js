@@ -30,18 +30,18 @@ setonEdit(false)
 
   return (
     <div className="tweet">
-      <div className="tweetSec1">
-        {<img className="creatorPhoto" 
+      <div className="Sec1">
+      {<img className="profilePic" 
         src={tweet.creatorPhoto} alt='creatorPhoto' />
         }
       </div>
-      <div className="tweetSec2">
+      <div className="Sec2">
      {onEdit ? <form onSubmit={submitTweet}>
       <textarea onChange={onChangeNewTweet} value={newTweet}></textarea>
       <button type="submit">tweet</button>
      </form> : 
     <Link to={`/tweet=${tweet.id}`}> 
-    <p>{tweet.creatorName}</p>
+    {tweet.creatorName}
      <p>{tweet.text}</p>
     </Link>
      
