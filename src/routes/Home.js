@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { dbService, storageService } from '../fbase'
+import { dbService } from '../fbase'
 import Tweet from '../componemts/Tweet'
 import { useOutletContext } from 'react-router-dom'
 import TweetForm from '../componemts/TweetForm'
 
+
 export default function Home() { 
   const [tweets, settweets] = useState([])
   const [User, setUser] = useOutletContext();
+  const [comments, setcomments] = useState([])
   
   useEffect(()=>{
     dbService.collection('tweets').onSnapshot((snapshot)=>{
@@ -16,14 +18,22 @@ export default function Home() {
       }))
       settweets(tweetArr);
     })
+    dbService.collection('comments').onSnapshot((snapshot)=>{
+      const commentArr =snapshot.docs.map((doc)=>({
+        id:doc.id,
+        ...doc.data(),
+      }))
+      setcomments(commentArr);
+    })
   }, [])
+
 
   return (
     <div>
       <TweetForm User={User} />
       <div>
         {tweets.map((tweet)=>(
-          <Tweet key={tweet.id} User={User} tweet={tweet} isOwner={tweet.creatorID===User.uid} />
+          <Tweet key={tweet.id} User={User} tweet={tweet} comments={comments} isOwner={tweet.creatorID===User.uid} />
         ))}
       </div>
     </div>

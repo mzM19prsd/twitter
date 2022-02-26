@@ -2,22 +2,22 @@ import React, { useState } from 'react'
 import { dbService } from '../fbase';
 import { doc, updateDoc } from "firebase/firestore";
 
-export default function CommentContent({content}) {
+export default function CommentContent({comment, iscommenter}) {
   
     const onDel = async () => {
         const ok = window.confirm("Are you sure you want yo delete this comment?");
         if (ok) {
-          await dbService.doc(`comments/${content.id}`).delete();
+          await dbService.doc(`comments/${comment.id}`).delete();
         } else {
-          return;
+          return
         }
       };
 
-      
-
   return (
-    <li>{content.comment}
-    
-      <button onClick={onDel}><i className='bx bx-trash' ></i></button> </li>
+    <li>
+      {comment.commenter}
+      {comment.comment}
+    {iscommenter && <button onClick={onDel}><i className='bx bx-trash' ></i></button>}
+     </li>
   )
 }
