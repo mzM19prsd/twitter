@@ -5,18 +5,20 @@ import { useOutletContext } from 'react-router-dom'
 import TweetForm from '../componemts/TweetForm'
 
 
+
 export default function Home() { 
   const [tweets, settweets] = useState([])
   const [User, setUser] = useOutletContext();
   const [comments, setcomments] = useState([])
   
   useEffect(()=>{
-    dbService.collection('tweets').onSnapshot((snapshot)=>{
+    dbService.collection('tweets').orderBy("createdAt","desc").limit(10).onSnapshot((snapshot)=>{
       const tweetArr =snapshot.docs.map((doc)=>({
         id:doc.id,
         ...doc.data(),
       }))
       settweets(tweetArr);
+      console.log(`snap1`)
     })
     dbService.collection('comments').onSnapshot((snapshot)=>{
       const commentArr =snapshot.docs.map((doc)=>({
@@ -24,6 +26,7 @@ export default function Home() {
         ...doc.data(),
       }))
       setcomments(commentArr);
+      console.log(`snap2`)
     })
   }, [])
 

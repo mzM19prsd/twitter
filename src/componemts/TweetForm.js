@@ -55,7 +55,7 @@ export default function TweetForm({ User }) {
         value={tweet}
       ></textarea>
       <div className="flex-btw">
-      <label for="tweetIMGInput" id="tweetIMGLabel" ><i className='bx bx-image'></i></label>
+      <label htmlFor="tweetIMGInput" id="tweetIMGLabel" ><i className='bx bx-image'></i></label>
         <input id="tweetIMGInput"
           type="file"
           accept="image/*"

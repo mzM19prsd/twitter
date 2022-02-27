@@ -90,7 +90,7 @@ export default function Profile() {
         <div className="box-wrap">
           <img className="box" src={User.photoURL} alt={User.displayName} />
           <label htmlFor="porfileIMGInput" id="porfileIMGLabel">
-            <i class="bx bxs-camera-plus"></i>
+            <i className="bx bxs-camera-plus"></i>
           </label>
         </div>
         <div>

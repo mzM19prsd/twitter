@@ -78,14 +78,14 @@ main {
 .tweet {
   font-size: 1.25rem;
   display: flex;
-  margin-bottom: 2rem;
+  padding: 1rem 0;
+  border-bottom:  double darkgray;
+  
 }
 .Btn-hide{
   display: none;
 }
-.tweet:hover {
-  background-color: whitesmoke;
-}
+
 .profilePic {
   border-radius: 50%;
   width: 50px;
@@ -112,6 +112,8 @@ main {
   max-height: 499px;
   border-radius: 15px;
 }
+
+
 textarea {
   width: 100%;
   font-size: 1.25rem;

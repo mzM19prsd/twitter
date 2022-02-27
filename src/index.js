@@ -8,6 +8,7 @@ import App from "./App";
 import './index.css';
 import Home from './routes/Home';
 import Profile from "./routes/Profile";
+import TweetPage from "./routes/TweetPage";
 
 
 const rootElement = document.getElementById("root");
@@ -18,6 +19,8 @@ render(
       <Route index element={<Home/>}
       />
        <Route path="/profile" element={<Profile />} />
+       <Route path="/tweet=:tweetID" element={<TweetPage />} />
+       
      </Route>
     </Routes>
   </BrowserRouter>,

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { dbService, storageService } from "../fbase";
 import { doc, updateDoc } from "firebase/firestore";
-import Comment from "./Comment";
+import { Link } from "react-router-dom";
 
 export default function Tweet({ tweet, comments, User, isOwner }) {
   const [onEdit, setonEdit] = useState(false);
   const [newTweet, setnewTweet] = useState(tweet.text);
+
   let thisComments = comments.filter((c) => c.commentOn === tweet.id);
 
   const onDel = async () => {
@@ -21,63 +22,64 @@ export default function Tweet({ tweet, comments, User, isOwner }) {
   const onEditToggle = () => {
     setonEdit(!onEdit);
   };
+
   const onChangeNewTweet = (e) => {
     setnewTweet(e.target.value);
   };
+
   const submitTweet = async (e) => {
     e.preventDefault();
     await updateDoc(doc(dbService, `tweets/${tweet.id}`), {
       text: newTweet,
     });
-    setonEdit(false);
   };
 
   return (
     <div className="tweet">
       <div className="Sec1">
-        {<img  className="profilePic"  
-        src={tweet.creatorPhoto}  alt="creatorPhoto"/>
-        }
+        <img
+          className="profilePic"
+          src={tweet.creatorPhoto}
+          alt="creatorPhoto"
+        />
       </div>
       <div className="Sec2">
+        <div>
+          {tweet.creatorName}
+          {isOwner ? (
+            <>
+              <span>
+                <button onClick={onDel}>
+                  <i className="bx bx-trash"></i>
+                </button>
+              </span>
+              <span>
+                <button onClick={onEditToggle}>
+                  {onEdit ? "cancel" : <i className="bx bx-edit"></i>}
+                </button>
+              </span>
+            </>
+          ) : (
+            ""
+          )}
+        </div>
         {onEdit ? (
           <form onSubmit={submitTweet}>
             <textarea onChange={onChangeNewTweet} value={newTweet}></textarea>
             <button type="submit">tweet</button>
           </form>
         ) : (
-          <div to={`/tweet=${tweet.id}`}>
-            {tweet.creatorName}
-            <p>{tweet.text}</p>
-          </div>
+          <Link to={`/tweet=${tweet.id}`}>
+            {" "}
+            <p>{tweet.text}</p>{" "}
+          </Link>
         )}
         {tweet.imgFileSrc && (
           <img className="tweetIMG" src={tweet.imgFileSrc} alt="tweetIMG" />
         )}
         <div>
-          <ul className="tweetOptions">
-            <li>
-              <Comment User={User} comments={thisComments} tweetID={tweet.id} />
-            </li>
-            {isOwner ? (
-              <>
-                <li>
-                  <button onClick={onDel}>
-                    <i className="bx bx-trash"></i>
-                  </button>
-                </li>
-                <li>
-                  <button onClick={onEditToggle}>
-                    {onEdit ? "cancel" : <i className="bx bx-edit"></i>}
-                  </button>
-                </li>
-              </>
-            ) : (
-              <>
-                <li>차단하기</li>
-              </>
-            )}
-          </ul>
+          {" "}
+          <Link to={`/tweet=${tweet.id}`}>commetns {thisComments.length}</Link>
         </div>
       </div>
     </div>

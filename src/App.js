@@ -14,6 +14,7 @@ function App() {
     if(user){
       setisLogined(true)
       setUser(user)
+      console.log(`start`)
     } else{
       setisLogined(false);
       navigate('/')
