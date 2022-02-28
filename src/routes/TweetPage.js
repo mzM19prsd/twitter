@@ -73,23 +73,20 @@ export default function TweetPage() {
         </div>
 
         <div className="Sec2">
+          <div className="flex-btw">
           <strong> {pageTweet.creatorName}</strong>
           {User.uid === pageTweet.creatorID ? (
-            <>
-              <span>
-                <button onClick={onDel}>
-                  <i className="bx bx-trash"></i>
-                </button>
-              </span>
-              <span>
-                <button onClick={onEditToggle}>
-                  {onEdit ? "cancel" : <i className="bx bx-edit"></i>}
-                </button>
-              </span>
-            </>
-          ) : (
-            "a"
-          )}
+            <div>
+                <span className="boxBtn" onClick={onDel}>
+                  <i className="bx bx-trash"></i> delete
+                </span>
+                <span className="boxBtn" onClick={onEditToggle}>
+                  {onEdit ? <span><i className='bx bx-x'></i> cancel</span>  :
+                   <span><i className='bx bx-edit' ></i> edit</span>}
+                </span>
+            </div>
+          ) : (" ")}
+          </div>
           {onEdit ? (
           <form onSubmit={submitTweet}>
             <textarea onChange={onChangeNewTweet} value={newTweet}></textarea>
@@ -114,7 +111,7 @@ export default function TweetPage() {
 
       {pageComment &&
         pageComment.map((comment) => (
-          <Comment c={comment} isCommenter={User.uid === comment.commenterID} />
+          <Comment key={comment.id} c={comment} isCommenter={User.uid === comment.commenterID} />
         ))}
     </div>
   );

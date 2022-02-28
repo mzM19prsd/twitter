@@ -1,13 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { dbService, storageService } from "../fbase";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc, where } from "firebase/firestore";
 import { Link } from "react-router-dom";
+import { collection, getDocs, query } from "@firebase/firestore";
 
-export default function Tweet({ tweet, comments, User, isOwner }) {
+export default function Tweet({ tweet, isOwner }) {
   const [onEdit, setonEdit] = useState(false);
   const [newTweet, setnewTweet] = useState(tweet.text);
+  const [comments, setcomments] = useState([]);
 
-  let thisComments = comments.filter((c) => c.commentOn === tweet.id);
+  const getComments = async () => {
+    const q = query(
+      collection(dbService, "comments"),
+      where("commentOn", "==", `${tweet.id}`)
+    );
+    const querySnapshot = await getDocs(q);
+    let getdata = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    setcomments(getdata);
+  };
+
+  useEffect(() => {
+    getComments();
+  }, []);
 
   const onDel = async () => {
     const ok = window.confirm("Are you sure you want yo delete this tweet?");
@@ -44,42 +61,40 @@ export default function Tweet({ tweet, comments, User, isOwner }) {
         />
       </div>
       <div className="Sec2">
-        <div>
+        <div className="flex-btw">
           {tweet.creatorName}
-          {isOwner ? (
-            <>
-              <span>
-                <button onClick={onDel}>
-                  <i className="bx bx-trash"></i>
-                </button>
-              </span>
-              <span>
-                <button onClick={onEditToggle}>
-                  {onEdit ? "cancel" : <i className="bx bx-edit"></i>}
-                </button>
-              </span>
-            </>
-          ) : (
-            ""
+          {isOwner && (
+            <div>
+             <span className="boxBtn" onClick={onEditToggle}>
+              {onEdit ? <span><i className='bx bx-x'></i> cancel</span> :
+               <span><i className='bx bx-edit' ></i> edit</span> }
+            </span>
+            <span className="boxBtn"
+             onClick={onDel}><i className='bx bx-trash' ></i> delete
+             </span>
+            </div>
           )}
+         
         </div>
         {onEdit ? (
           <form onSubmit={submitTweet}>
             <textarea onChange={onChangeNewTweet} value={newTweet}></textarea>
-            <button type="submit">tweet</button>
+            <button className="tweet-btn" type="submit">
+              Edit
+            </button>
           </form>
         ) : (
           <Link to={`/tweet=${tweet.id}`}>
-            {" "}
-            <p>{tweet.text}</p>{" "}
+            <p>{tweet.text}</p>
           </Link>
         )}
         {tweet.imgFileSrc && (
           <img className="tweetIMG" src={tweet.imgFileSrc} alt="tweetIMG" />
         )}
         <div>
-          {" "}
-          <Link to={`/tweet=${tweet.id}`}>commetns {thisComments.length}</Link>
+          <Link to={`/tweet=${tweet.id}`}>
+            commetns {comments && comments.length}{" "}
+          </Link>
         </div>
       </div>
     </div>

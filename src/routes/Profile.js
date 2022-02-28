@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { authService, dbService, storageService } from "../fbase";
-import { collection, getDocs, query, where } from "@firebase/firestore";
-import { doc } from "firebase/firestore";
+import { collection, getDocs, query, where, orderBy } from "@firebase/firestore";
+import Tweet from "../componemts/Tweet";
 
 export default function Profile() {
   const [User, setUser] = useState(authService.currentUser);
@@ -15,7 +15,9 @@ export default function Profile() {
   const getTweets = async () => {
     const q = query(
       collection(dbService, "tweets"),
-      where("creatorID", "==", `${User.uid}`)
+      where("creatorID", "==", `${User.uid}`),
+      orderBy("createdAt"),
+      
     );
     const querySnapshot = await getDocs(q);
     let getdata = querySnapshot.docs.map((doc) => ({
@@ -24,7 +26,7 @@ export default function Profile() {
     }));
     setuserTweets(getdata);
   };
-
+  
   useEffect(() => {
     getTweets();
   }, []);
@@ -103,20 +105,24 @@ export default function Profile() {
                   value={newDisplayName}
                   minLength="2"
                 ></input>
-                <input type="submit" value="Save"></input>
+                <input className="Btn black" 
+                type="submit" value="Save"></input>
               </form>
             ) : (
               User.displayName
             )}
-            <button onClick={editNameToggle}>
-              {onEditName ? "cancel" : <i className="bx bx-edit-alt"></i>}
-            </button>
+            <span className="boxBtn" onClick={editNameToggle}>
+              {onEditName ? <span><i className='bx bx-x'></i> cancel</span> :
+                <span><i className='bx bx-edit' ></i> edit</span> 
+                }
+            </span>
           </h3>
           <form onSubmit={onSubmitPhoto}>
-            <div>
-              <button onClick={editPhotoToggle}>
-                {onEditPhoto ? "cancel" : "Change profile photo"}
-              </button>
+            <div style={{marginBottom:'1rem'}}>
+              <span className="boxBtn" onClick={editPhotoToggle}>
+                {onEditPhoto ? <span><i className='bx bx-x'></i> cancel</span> :
+                 "Change profile photo"}
+              </span>
             </div>
             <input
               id="porfileIMGInput"
@@ -124,29 +130,18 @@ export default function Profile() {
               accept="image/*"
               ref={fileInput}
               onChange={newPhoto}
-              className={`${onEditPhoto ? "Btn" : "Btn-hide"}`}
+              className={`${onEditPhoto ? "none" : "Btn-hide"}`}
             ></input>
-            {newPhotoURL && <input type="submit" value="Save"></input>}
+            {newPhotoURL && <input className="Btn black" type="submit" value="Save"></input>}
           </form>
         </div>
       </div>
 
-      <ul>
-        {userTweets &&
-          userTweets.map((tweet) => (
-            <li key={tweet.id}>
-              <p>{tweet.text}</p>
-              {tweet.imgFileSrc && (
-                <img
-                  className="tweetIMG"
-                  src={tweet.imgFileSrc}
-                  alt={tweet.text}
-                />
-              )}
-            </li>
-          ))}
-        {userTweets.length === 0 && <li> 트윗이 없습니다</li>}
-      </ul>
+      <div>
+        {userTweets && userTweets.reverse().map((tweet)=>(
+          <Tweet key={tweet.id} tweet={tweet} isOwner={true}/>
+        ))}
+        </div>        
     </div>
   );
 }

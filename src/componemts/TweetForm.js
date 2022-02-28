@@ -46,7 +46,7 @@ export default function TweetForm({ User }) {
   return (
     <div className="tweet">
       <div className="Sec1">
-        <img className="profilePic" src={User.photoURL} />
+        <img className="profilePic" src={User.photoURL} alt="user" />
       </div>
       <form onSubmit={submitTweet} className='Sec2'>
       <textarea
@@ -68,7 +68,7 @@ export default function TweetForm({ User }) {
             <button onClick={clearImg}>clear</button>
           </div>
         )}
-        <button type="submit">tweet</button>
+        <button className="tweet-btn" type="submit">Tweet</button>
       </div>
     </form>
     </div>
