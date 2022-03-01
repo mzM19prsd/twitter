@@ -61,11 +61,12 @@ export default function Tweet({ tweet, isOwner }) {
         />
       </div>
       <div className="Sec2">
+        
         <div className="flex-btw">
           {tweet.creatorName}
           {isOwner && (
             <div>
-             <span className="boxBtn" onClick={onEditToggle}>
+             <span className="boxBtn mr-8p" onClick={onEditToggle}>
               {onEdit ? <span><i className='bx bx-x'></i> cancel</span> :
                <span><i className='bx bx-edit' ></i> edit</span> }
             </span>
@@ -77,11 +78,11 @@ export default function Tweet({ tweet, isOwner }) {
          
         </div>
         {onEdit ? (
-          <form onSubmit={submitTweet}>
+          <form className="tweet-form" onSubmit={submitTweet}>
             <textarea onChange={onChangeNewTweet} value={newTweet}></textarea>
-            <button className="tweet-btn" type="submit">
-              Edit
-            </button>
+           <div className="text-end">
+           <button className="blue-btn" type="submit">Tweet</button>
+           </div>
           </form>
         ) : (
           <Link to={`/tweet=${tweet.id}`}>
@@ -96,7 +97,8 @@ export default function Tweet({ tweet, isOwner }) {
             commetns {comments && comments.length}{" "}
           </Link>
         </div>
-      </div>
+        </div>
+      
     </div>
   );
 }

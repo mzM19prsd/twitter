@@ -1,45 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { authService } from "../fbase";
 
 export default function Header() {
-  
+  const [menuToggle, setmenuToggle] = useState(false);
   const onLogout = () => {
     authService.signOut();
   };
-  
+  function onMenuTog() {
+    setmenuToggle(!menuToggle);
+  }
   return (
     <div className="header">
-      <div>
-        <i className="bx bxl-twitter logo"></i>
+      <div className="header-logo">
+        <Link to="/" onClick={onMenuTog}>
+          <span>
+            <i className="bx bxl-twitter logo"></i>
+          </span>
+        </Link>
+        <span id="hd-menu" onClick={onMenuTog}>
+          <i className="bx bx-menu"></i>
+        </span>
       </div>
-      <ul>
+      <ul id={menuToggle ? "header-show" : "header-hide"}>
         <li>
-          <Link to="/" className="navItem">
+          <Link to="/" className="navItem" onClick={onMenuTog}>
             <span>
-            <i className='bx bx-home' ></i>
+              <i className="bx bx-home"></i>
             </span>{" "}
             <span className="navItem-name">Home</span>
           </Link>
         </li>
         <li>
-          <Link to='/profile' className="navItem">
+          <Link to="/profile" className="navItem" onClick={onMenuTog}>
             <span>
-            <i className='bx bx-user' ></i>
+              <i className="bx bx-user"></i>
             </span>{" "}
             <span className="navItem-name">Profile</span>
           </Link>
         </li>
-        <li onClick={onLogout}>       
-            <span onClick={onLogout} className="navItem">
+        <li onClick={onLogout}>
+          <span onClick={onLogout} className="navItem">
             <span>
-            <i className='bx bx-log-out'></i>
+              <i className="bx bx-log-out"></i>
             </span>{" "}
             <span className="navItem-name">Log out</span>
-            </span>         
+          </span>
         </li>
       </ul>
-      
     </div>
   );
 }

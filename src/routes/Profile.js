@@ -98,18 +98,18 @@ export default function Profile() {
         <div>
           <h3>
             {onEditName ? (
-              <form onSubmit={onSubmitName}>
-                <input
+              <form onSubmit={onSubmitName} style={{marginBottom:'0.5rem'}}>
+                <input id="proileNameInput"
                   type="text"
                   onChange={newName}
                   value={newDisplayName}
                   minLength="2"
                 ></input>
-                <input className="Btn black" 
+                <input className="black-btn"
                 type="submit" value="Save"></input>
               </form>
             ) : (
-              User.displayName
+              <span style={{marginRight:'1rem'}}>{User.displayName}</span>
             )}
             <span className="boxBtn" onClick={editNameToggle}>
               {onEditName ? <span><i className='bx bx-x'></i> cancel</span> :
@@ -117,22 +117,22 @@ export default function Profile() {
                 }
             </span>
           </h3>
-          <form onSubmit={onSubmitPhoto}>
-            <div style={{marginBottom:'1rem'}}>
-              <span className="boxBtn" onClick={editPhotoToggle}>
-                {onEditPhoto ? <span><i className='bx bx-x'></i> cancel</span> :
-                 "Change profile photo"}
-              </span>
-            </div>
+          <form className="" onSubmit={onSubmitPhoto}>
             <input
               id="porfileIMGInput"
               type="file"
               accept="image/*"
               ref={fileInput}
               onChange={newPhoto}
-              className={`${onEditPhoto ? "none" : "Btn-hide"}`}
+              className={`mb-1 ${onEditPhoto ? "none" : "Btn-hide"}`}
             ></input>
-            {newPhotoURL && <input className="Btn black" type="submit" value="Save"></input>}
+            {newPhotoURL && <input className="black-btn" type="submit" value="Save"></input>}
+            <div>
+              <span className="boxBtn" onClick={editPhotoToggle}>
+                {onEditPhoto ? <span><i className='bx bx-x'></i> cancel</span> :
+                 "Change profile photo"}
+              </span>
+            </div>
           </form>
         </div>
       </div>

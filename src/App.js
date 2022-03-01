@@ -32,8 +32,6 @@ function App() {
        <main><Outlet context={[User, setUser]} /></main> :
        <Login />
        }
-     
-      <footer></footer>
     </div>
   );
 }

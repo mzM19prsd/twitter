@@ -48,13 +48,14 @@ export default function TweetForm({ User }) {
       <div className="Sec1">
         <img className="profilePic" src={User.photoURL} alt="user" />
       </div>
-      <form onSubmit={submitTweet} className='Sec2'>
+      <div className='Sec2'>
+      <form onSubmit={submitTweet} className="tweet-form">
       <textarea
         onChange={(e) => {settweet(e.target.value);}}
         placeholder="무슨 일이 일어나고 있나요?"
         value={tweet}
       ></textarea>
-      <div className="flex-btw">
+      <div className="tweet-option">
       <label htmlFor="tweetIMGInput" id="tweetIMGLabel" ><i className='bx bx-image'></i></label>
         <input id="tweetIMGInput"
           type="file"
@@ -63,14 +64,15 @@ export default function TweetForm({ User }) {
           ref={fileInput}
         ></input>
         {imgFile && (
-          <div>
-            <img src={imgFile} width="50px" maxheight="50px" alt="uploadFile" />
+          <div className="prevIMG">
+            <img src={imgFile} alt="uploadImg" />
             <button onClick={clearImg}>clear</button>
           </div>
         )}
-        <button className="tweet-btn" type="submit">Tweet</button>
+        <button className="blue-btn" type="submit">Tweet</button>
       </div>
     </form>
+      </div>
     </div>
   );
 }

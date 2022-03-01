@@ -77,20 +77,22 @@ export default function TweetPage() {
           <strong> {pageTweet.creatorName}</strong>
           {User.uid === pageTweet.creatorID ? (
             <div>
-                <span className="boxBtn" onClick={onDel}>
-                  <i className="bx bx-trash"></i> delete
-                </span>
-                <span className="boxBtn" onClick={onEditToggle}>
+                <span className="boxBtn mr-8p" onClick={onEditToggle}>
                   {onEdit ? <span><i className='bx bx-x'></i> cancel</span>  :
                    <span><i className='bx bx-edit' ></i> edit</span>}
+                </span>
+                <span className="boxBtn" onClick={onDel}>
+                  <i className="bx bx-trash"></i> delete
                 </span>
             </div>
           ) : (" ")}
           </div>
           {onEdit ? (
-          <form onSubmit={submitTweet}>
+          <form  onSubmit={submitTweet} className="tweet-form">
             <textarea onChange={onChangeNewTweet} value={newTweet}></textarea>
-            <button type="submit">tweet</button>
+            <div className="text-end">
+           <button className="blue-btn" type="submit">Tweet</button>
+           </div>
           </form>
         ) : (
          <p>{pageTweet.text}</p>

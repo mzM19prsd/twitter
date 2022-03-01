@@ -29,12 +29,38 @@ a {
   left: 0;
   width: 100%;
   min-height: 100vh;
-  z-index: 999;
+  z-index: 99;
   background: whitesmoke;
 }
 .login {
+  width: 40%;
+  /* width: 390px; */
+  height: 500px;
+  padding: 1rem 0;
+  background-color: white;
+  margin: 5rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.login-btn{
+  cursor: pointer;
+  display: flex;
+  gap: 1rem;
+  padding: 0.25rem 1rem;
   justify-content: center;
-  text-align: center;
+  align-items: center;
+  border: 1px solid #ccc;
+  width: 350px;
+  height: 3rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+.login div img{
+  width: auto;
+  height: 100%;
 }
 ul {
   list-style: none;
@@ -52,14 +78,23 @@ button{
 label {
   cursor: pointer;
 }
+#tweetIMGLabel{
+  font-size: 1.5rem;
+  padding: 0 0.5rem;
+  border-radius: 40%;
+}
 #tweetIMGLabel:hover{
-  background-color: rgba(0, 181, 255, 0.1); 
+  background-color: rgba(0, 181, 255, 0.2); 
+}
+#hd-menu{
+  display: none;
 }
 .header {
   width: 24%;
   font-size: 2rem;
   text-align: center;
   padding: 1.5rem 0;
+  transition: 0.4s;
 }
 .header ul li{
   margin: 0.5rem 0;
@@ -81,10 +116,26 @@ main {
   display: flex;
   justify-content: space-between;
 }
+.tweet-option{
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  z-index: 0;
+}
+.prevIMG{
+  position: absolute;
+  top: 0;
+  left: 20%;
+}
+.prevIMG img{
+  width: auto;
+  height: 40px;
+}
 .tweet {
   font-size: 1.25rem;
   display: flex;
-  padding: 1.5rem 2%;
+  padding: 1.5rem 2% 0rem ;
+  gap: 1rem;
   border-bottom:  double darkgray; 
 }
 .Btn-hide{
@@ -93,22 +144,17 @@ main {
 .profilePic {
   object-fit: cover;
   object-position: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 65%;
-  height: 65%;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
 }
 .Sec1 {
-  width: 10%;
-  position: relative;
-  height: 0;
+  width: 50px;
+  
   overflow: hidden;
-  padding-bottom: 10%;
 }
 .Sec2 {
-  width: 90%;
+ width: calc(100% - 66px);
 }
 .tweetOptions {
   display: flex;
@@ -120,12 +166,17 @@ main {
   max-height: 499px;
   border-radius: 15px;
 }
+.tweet-form{
+  padding-right: 3%;
+  margin-bottom: 0.5rem;
+}
 textarea {
   display: block;
-  width: 85%;
+  width: 100%;
   font-size: 1.25rem;
   resize: none;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
   border: 1px solid lightgray;
   border-width: 0 0 1px;
 }
@@ -141,6 +192,7 @@ textarea:focus {
 }
 .box-wrap {
   position: relative;
+  z-index: 0;
   width: 20%;
   height: 0;
   overflow: hidden;
@@ -159,7 +211,7 @@ textarea:focus {
   position: absolute;
   top: calc(50% - 12px);
   left: calc(50% - 12px);
-  z-index: 3;
+  z-index: 99;
   font-size: 1.5rem;
   color: white;
 }
@@ -169,40 +221,109 @@ textarea:focus {
 .box-wrap:hover .box{
   filter: brightness(0.5);
 }
-#porfileIMGInput{
-  
-}
-.tweet-btn{
-  background-color: #00b5ff;
-  color: white;
-  font-size: 1.25rem;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  opacity: 0.6;
-}
-.tweet-btn:hover{
-  opacity: unset;
+#proileNameInput{
+  font-size: 1rem;
 }
 .boxBtn{
   font-size: 1rem;
   cursor: pointer;
   padding: 0.25rem 0.5rem;
   border-radius: 10px;
-  margin-right: 1rem;
   border: 1px solid lightgray;
+  font-weight: 400;
 }
 .boxBtn:hover{
   border: 1px solid gray;
 }
-.Btn{
+.black-btn{
+  cursor: pointer;
+  background-color: black;
+  border: 1px solid black;
   color: white;
   font-size: 1rem;
   padding: 0.25rem 0.75rem;
   border-radius: 10px;
-  background-color: inherit;
+  font-weight: 500;
+  margin-left: 0.5rem;
+}
+.blue-btn{
+  cursor: pointer;
+  color: white;
+  font-size: 1rem;
+  background-color: #00b5ff;
+  padding: 0.5rem 1rem;
+  border-radius: 15px;
+  font-weight: bold;
+  opacity: 0.65;
+}
+.blue-btn:hover{
+  opacity: 1;
+}
+.text-end{
+  text-align: end;
+}
+.mt-1{
+  margin-top: 1rem;
+}
+.mr-8p{
+  margin-right: 0.5rem;
+}
+.ml-1{
   margin-left: 1rem;
 }
-.black{
-  background-color: black;
-  border: 1px solid black;
+.mb-1{
+  margin-bottom: 1rem;
+}
+
+@media screen and (max-width:1023px) {
+  body{
+    padding: 0;
+  }
+  .header{
+    width: 13%;
+  }
+  .navItem-name{
+    display: none;
+  }
+  main{
+    width: 87%;
+  }
+}
+@media screen and (max-width:500px) {
+  .app{
+    display: block;
+  }
+  main{
+    padding-top: 51px;
+  }
+  .navItem-name{
+    display: inline;
+  }
+  main{
+    width: 100%;
+  }
+  #hd-menu{
+    display: block;
+    position: absolute;
+    top: 5px;right: 5px;
+    padding: 0.25rem 0.5rem;
+    background-color: whitesmoke;
+  }
+  .header{
+    padding: 0;
+    width: 100%;
+    position: fixed;
+    top: 0;left: 0;
+    background-color: white;
+    font-size: 1.5rem;
+    z-index: 2;
+    border-bottom: 1px solid lightgray;
+  }
+  #header-show{
+    display: block;
+  }
+  #header-hide{
+    display: none;
+  }
+  
 }
