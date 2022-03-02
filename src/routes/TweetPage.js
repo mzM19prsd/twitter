@@ -1,4 +1,4 @@
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc,  } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useOutletContext, useParams } from "react-router-dom";
 import Comment from "../componemts/Comment";
@@ -11,9 +11,8 @@ export default function TweetPage() {
   const [pageComment, setpageComment] = useState([]);
   const [onEdit, setonEdit] = useState(false);
   const [newTweet, setnewTweet] = useState('');
-  
   let params = useParams();
-
+console.log(pageComment)
   const onDel = async () => {
     const ok = window.confirm("Are you sure you want yo delete this tweet?");
     if (ok) {
@@ -50,6 +49,7 @@ export default function TweetPage() {
       });
     dbService
       .collection("comments")
+      .orderBy("commentedAt", "desc")
       .where("commentOn", "==", `${params.tweetID}`)
       .onSnapshot((snapshot) => {
         const commentArr = snapshot.docs.map((doc) => ({
@@ -105,10 +105,14 @@ export default function TweetPage() {
               alt="tweetIMG"
             />
           )}
+           <div className="flex-btw" style={{margin:'0.5rem 0'}}>
+             <span><i className='bx bx-message'></i> {pageComment.length}</span>
+             <span className="date">{pageTweet.createdAt}</span
+             ></div>
         </div>
       </div>
 
-      <div>comments {pageComment.length}</div>
+     
       <CommentForm User={User} tweetID={params.tweetID} />
 
       {pageComment &&

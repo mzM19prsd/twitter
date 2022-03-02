@@ -16,12 +16,14 @@ export default function Comment({ c, isCommenter }) {
         <img className="profilePic" src={c.photoURL} alt="commenterPhoto" />
       </div>
       <div className="Sec2">
-        {c.commenter}
+       <div className="flex-btw">
+       {c.commenter}
         {isCommenter && (
           <button onClick={onDel} className="comment-del-btn">
             <i className="bx bx-trash"></i>
           </button>
         )}
+       </div>
         <p>{c.comment}</p>
       </div>
     </div>

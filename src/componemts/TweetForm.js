@@ -1,10 +1,12 @@
 import { dbService, storageService } from "../fbase";
 import React, { useRef, useState } from "react";
+import { Timestamp } from "firebase/firestore";
 
 export default function TweetForm({ User }) {
   const [tweet, settweet] = useState("");
   const [imgFile, setimgFile] = useState("");
   const fileInput = useRef();
+  
   const onFileChange = (event) => {
     const {
       target: { files },
@@ -25,19 +27,20 @@ export default function TweetForm({ User }) {
 
   const submitTweet = async (e) => {
     e.preventDefault();
+    
     let imgFileSrc = "";
     if (imgFile !== "") {
       const fileRef = storageService.ref().child(`${User.uid}/${Date.now()}`);
       const response = await fileRef.putString(imgFile, "data_url");
       imgFileSrc = await response.ref.getDownloadURL();
-    }
+    }else if(tweet.length < 2){ return}
     await dbService.collection("tweets").add({
       creatorID: User.uid,
       creatorName: User.displayName,
       creatorPhoto: User.photoURL,
       text: tweet,
       imgFileSrc: imgFileSrc,
-      createdAt: Date.now(),
+      createdAt:  Timestamp.now().toDate().toLocaleString(),
     });
     settweet("");
     setimgFile("");

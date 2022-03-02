@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { dbService, storageService } from "../fbase";
-import { doc, updateDoc, where } from "firebase/firestore";
+import { doc, orderBy, updateDoc, where } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import { collection, getDocs, query } from "@firebase/firestore";
 
@@ -12,7 +12,7 @@ export default function Tweet({ tweet, isOwner }) {
   const getComments = async () => {
     const q = query(
       collection(dbService, "comments"),
-      where("commentOn", "==", `${tweet.id}`)
+      where("commentOn", "==", `${tweet.id}`),
     );
     const querySnapshot = await getDocs(q);
     let getdata = querySnapshot.docs.map((doc) => ({

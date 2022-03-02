@@ -1,3 +1,4 @@
+import { Timestamp } from "firebase/firestore";
 import React, { useState } from "react";
 import { dbService } from "../fbase";
 
@@ -17,23 +18,31 @@ export default function CommentForm({User, tweetID}) {
         commenterID: User.uid,
         commentOn: tweetID,
         comment: NewComment,
-        commentAt: Date.now(),
+        commentedAt: Timestamp.now().toDate().toLocaleString(),
       });
       setNewComment("")
     }
   };
 
   return (
-    <div>
-       <form onSubmit={submitComment}>
-        <input
-          type="text"
+    <div className="tweet">
+      <div className="Sec1">
+      <img className="profilePic" src={User.photoURL} alt="user" />
+      </div>
+      <div className="Sec2">
+      <form onSubmit={submitComment} className="tweet-form">
+        <textarea
           value={NewComment}
           onChange={onChangeComment}
-          minLength="2"
-        ></input>
-        <input type="submit" value="reply"></input>
+        ></textarea>
+        <div style={{textAlign:'end'}}>
+        <button className="blue-btn" type="submit" value="reply" style={{marginBottom:'0.5rem'}}>
+          Comment
+          </button>
+        </div>
       </form>
+      </div>
+      
     </div>
   );
 }

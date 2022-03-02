@@ -13,7 +13,7 @@ export default function Header() {
   return (
     <div className="header">
       <div className="header-logo">
-        <Link to="/" onClick={onMenuTog}>
+        <Link to="/">
           <span>
             <i className="bx bxl-twitter logo"></i>
           </span>
