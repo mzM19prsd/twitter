@@ -16,7 +16,7 @@ export default function Profile() {
     const q = query(
       collection(dbService, "tweets"),
       where("creatorID", "==", `${User.uid}`),
-      orderBy("createdAt"),
+      orderBy("createdAt", "desc"),
       
     );
     const querySnapshot = await getDocs(q);
@@ -138,7 +138,7 @@ export default function Profile() {
       </div>
 
       <div>
-        {userTweets && userTweets.reverse().map((tweet)=>(
+        {userTweets && userTweets.map((tweet)=>(
           <Tweet key={tweet.id} tweet={tweet} isOwner={true}/>
         ))}
         </div>        

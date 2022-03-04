@@ -25,6 +25,7 @@ export default function Comment({ c, isCommenter }) {
         )}
        </div>
         <p>{c.comment}</p>
+       <div className="c-date"> {c.commentedAt}</div>
       </div>
     </div>
   );

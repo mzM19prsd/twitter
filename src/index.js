@@ -8,6 +8,7 @@ import App from "./App";
 import './index.css';
 import Home from './routes/Home';
 import Profile from "./routes/Profile";
+import Search from "./routes/Search";
 import TweetPage from "./routes/TweetPage";
 
 
@@ -20,7 +21,8 @@ render(
       />
        <Route path="/profile" element={<Profile />} />
        <Route path="/tweet=:tweetID" element={<TweetPage />} />
-       
+       <Route path="/search" element={<Search />} >
+       </Route>
      </Route>
     </Routes>
   </BrowserRouter>,

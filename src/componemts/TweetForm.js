@@ -55,7 +55,7 @@ export default function TweetForm({ User }) {
       <form onSubmit={submitTweet} className="tweet-form">
       <textarea
         onChange={(e) => {settweet(e.target.value);}}
-        placeholder="무슨 일이 일어나고 있나요?"
+        placeholder="What's happening?"
         value={tweet}
       ></textarea>
       <div className="tweet-option">

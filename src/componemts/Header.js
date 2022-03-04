@@ -39,6 +39,14 @@ export default function Header() {
             <span className="navItem-name">Profile</span>
           </Link>
         </li>
+        <li>
+          <Link to={`/search`} className="navItem" onClick={onMenuTog}>
+            <span>
+            <i className='bx bx-search-alt-2'></i>
+            </span>{" "}
+            <span className="navItem-name">Search</span>
+          </Link>
+        </li>
         <li onClick={onLogout}>
           <span onClick={onLogout} className="navItem">
             <span>

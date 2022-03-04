@@ -34,7 +34,6 @@ a {
 }
 .login {
   width: 40%;
-  /* width: 390px; */
   height: 500px;
   padding: 1rem 0;
   background-color: white;
@@ -109,8 +108,8 @@ label {
 }
 main {
   width: 76%;
-  border-left: 1px solid lightgray;
-  border-right: 1px solid gray;
+  border: 1px solid lightgray;
+  border-width: 0 1px 0 1px;
 }
 .flex-btw {
   display: flex;
@@ -281,10 +280,45 @@ textarea:focus {
   font-size: 1rem;
   color: dimgray;
 }
+.c-date{
+  font-size: 0.75rem;
+  color: dimgray;
+  margin: 0.5rem 0;
+  text-align: end;
+}
+.header ul{
+  margin:  1rem 0;
+}
+#searchBox{
+  max-width: 70%;
+  padding:0.5rem 1rem;
+  border: 1px solid whitesmoke;
+  background-color: whitesmoke;
+  font-size: 2rem;
+  display: flex;
+  border-radius: 20px;
+  gap: 1rem;
+  margin: 1rem auto;
+}
+#searchInput{
+  border: none;
+  width: 100%;
+  background-color: inherit;
+  font-size: 1.5rem;
+  outline: none;
+}
+#searchBox:focus-within{
+  border: 1px solid deepskyblue;
+  background-color: white;
+}
+
 
 @media screen and (max-width:1023px) {
   body{
     padding: 0;
+  }
+  .login{
+    width: 400px;
   }
   .header{
     width: 13%;
@@ -332,5 +366,10 @@ textarea:focus {
   #header-hide{
     display: none;
   }
-  
+  .tweet{
+    font-size: 1rem;
+  }
+  .boxBtn{
+    font-size: 0.75rem;
+  }
 }
